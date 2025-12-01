@@ -1,0 +1,150 @@
+.atom-button{
+    background-color: var(--atomic-primary);
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px;
+    color: white;
+    display: inline-flex;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 32px;
+    line-height: 28px;
+    gap: 0.5rem;
+    margin: 20px 0px;
+    transition: 0.3s;
+
+    svg{
+        stroke: white;
+        height: 18px;
+    }
+}
+
+.atom-button:hover{
+    background-color: rgb(from var(--atomic-primary) r g b / 0.7);
+}
+
+h1{
+    font-weight: 900 !important; /* The heaviest weight */
+    
+    /* 3. Style it for the portfolio look */
+    line-height: 1.1; 
+    letter-spacing: -0.02em; /* Tucks it in slightly */
+    font-size: clamp(3rem, 7vw, 6rem);
+    margin: 10px 0px;
+    color: var(--atomic-heading);
+}
+h3{
+    font-size: 18px;
+    margin: 0px;
+}
+p{
+    font-size: 20px;
+    color: var(--atomic-paragraph);
+    margin: 10px 0px;
+    line-height: 28px;
+}
+
+/* --- 1. The Wrapper (Handles the Entry) --- */
+.scroll-reveal-wrapper.scroll-reveal {
+    /* Ensures the wrapper doesn't collapse */
+    display: inline-block; 
+    
+    /* EXISTING REVEAL CSS */
+    opacity: 0; 
+    transform: translateY(20px); 
+    animation-name: slide-up-fade-in;
+    animation-duration: 0.8s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+}
+
+.scroll-reveal-wrapper.is-visible { 
+    animation-play-state: running;
+}
+
+/* --- The Inner Element --- */
+.animated-element {
+    width: 450px; 
+    height: 600px; 
+    border-radius: 48px; 
+    
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+
+    transform-origin: center center;
+
+    /* 1. We keep the 3D depth static here */
+    transform: translateZ(200px);
+
+    /* 2. We apply THREE separate animations with DIFFERENT durations */
+    /* By using 5s, 6s, and 7s, the patterns won't align for 210 seconds */
+    animation: 
+        float-vertical   5s ease-in-out infinite alternate,
+        float-horizontal 6s ease-in-out infinite alternate,
+        float-rotate     7s ease-in-out infinite alternate;
+        
+    will-change: transform, translate, rotate, box-shadow;
+}
+
+/* --- Animation 1: Up and Down (Carries the shadow) --- */
+@keyframes float-vertical {
+    0% {
+        translate: 0 0; /* Default Y position */
+        box-shadow: 0px 15px 30px rgba(0,0,0,0.2);
+    }
+    100% {
+        translate: 0 -15px; /* Move UP 15px */
+        box-shadow: 0px 35px 50px rgba(0,0,0,0.15); /* Shadow gets softer */
+    }
+}
+
+/* --- Animation 2: Left and Right (Very subtle drift) --- */
+@keyframes float-horizontal {
+    0% {
+
+        margin-left: -5px; 
+    }
+    100% {
+        margin-left: 5px;
+    }
+}
+
+/* --- Animation 3: The Tilt (Independent) --- */
+@keyframes float-rotate {
+    0% {
+        rotate: -1deg; /* Tilt Left */
+    }
+}
+.feature-card__icon{
+    width: 48px;
+    height: 48px;
+    background-color: var(--atomic-primary);
+    color: white;
+    border-radius: 9999px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    svg{
+        color: white;
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+}
+
+.large-image{
+    height: 90%;
+    width: 90%;
+    aspect-ratio: 1/1; /* keeps a predictable height regardless of parent */
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 200px; /* fallback so it doesn't collapse to 0px */
+    display: block;
+    border-radius: 12px;
+}
+
+

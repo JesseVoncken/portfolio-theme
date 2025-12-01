@@ -1,0 +1,70 @@
+.hero-section{
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    height: 800px;
+    align-items: center;
+}
+
+.hero-section p{
+    width: 80%;
+}
+
+/* hero-section h1 visual styles are handled by the flat selector below when needed */
+
+/* Explicit per-element delay variables so animation-delay actually affects the element
+   (animation-delay does not inherit from parents). These flat selectors make the
+   stagger reliable even if your CSS pipeline doesn't support nested rules. */
+.hero-section p.scroll-reveal { --delay: 0.8s; }
+.hero-section h1.scroll-reveal { --delay: 0.6s; }
+.hero-section a.scroll-reveal { --delay: 1s; }
+
+.about-section{
+    max-width: 1400px;
+    margin: 0 auto;
+    margin-top: 200px;
+}
+
+.about-section h1{
+    margin: 0 auto;
+    margin-bottom: 50px;
+    text-align: center;
+    color: var(--atomic-primary);
+    text-transform: capitalize;
+}
+
+.about-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    h2{
+        margin-bottom: 0px ;
+    }
+}
+
+.about-container .flex-about{
+    height: 100%;
+    width: 50%;
+}
+
+.about-text-block{
+    p{
+        margin-top: 10px;
+    }
+}
+
+/* Per-element delay variables for the about section */
+.about-section h1.scroll-reveal { --delay: 0s; }
+.about-container.scroll-reveal { --delay: 0.4s; }
+.about-container .about-text-block .scroll-reveal { --delay: 0.4s; }
+.about-container .flex-about .large-image.scroll-reveal { --delay: 0.2s; }
+
+/* Feature cards should appear after the about-text-block; add a later base delay
+   and small per-card stagger so they come in sequentially. */
+.about-container .feature-cards-wrapper .feature-card.scroll-reveal { --delay: 0.75s; }
+.about-container .feature-cards-wrapper .feature-card.scroll-reveal:nth-child(1) { --delay: 0.75s; }
+.about-container .feature-cards-wrapper .feature-card.scroll-reveal:nth-child(2) { --delay: 0.85s; }
+.about-container .feature-cards-wrapper .feature-card.scroll-reveal:nth-child(3) { --delay: 0.95s; }
+.about-container .feature-cards-wrapper .feature-card.scroll-reveal:nth-child(4) { --delay: 1.05s; }

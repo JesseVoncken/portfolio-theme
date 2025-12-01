@@ -1,0 +1,18 @@
+{
+  "settings": {
+    "color": {
+      "palette": [
+        {
+          "slug": "primary-brand",
+          "color": "#D32F2F",
+          "name": "Primary Brand Red"
+        },
+        {
+          "slug": "secondary-brand",
+          "color": "#1976D2",
+          "name": "Secondary Brand Blue"
+        }
+      ]
+    }
+  }
+}

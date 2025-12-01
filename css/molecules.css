@@ -1,0 +1,50 @@
+.molecule-social-links-group{
+    display: flex;
+    gap: 16px;
+    animation-delay: 1.2s;
+    margin: 20px 0px;
+
+    a{
+        border-radius: 9999px;
+        border: black solid 2px;
+        height: 16px;
+        width: 16px;
+        padding: 10px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.2s;
+
+        span{
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            svg{
+                stroke-width: 2px;
+                color: black;
+            }
+        }
+    }
+    a:hover{
+        background-color: black;
+    }
+
+    a:hover span svg{
+        color: white;
+    }
+}
+
+.feature-card{
+    display: flex;
+    align-items: center;
+    margin: 20px 0px;
+    gap: 20px;
+    p{
+        font-size: 16px;
+        margin: 0px;
+        line-height: 22px;
+    }
+    .atom-icon{
+        aspect-ratio: 1 / 1;
+    }
+}
