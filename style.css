@@ -1,0 +1,293 @@
+:root{
+--border: 214.3 31.8% 91.4%;
+--background: 150 25% 97.5%;
+--primary: 190 40% 50%;
+--accent-green: 154 36% 52.4%;
+--foreground: 220 10% 10%;
+--muted-foreground: 215.4 16.3% 46.9%;
+  border-color: hsl(var(--border));
+ font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600; /* Default to the "creative" weight */
+}
+
+body{
+	margin: 0px;
+	background-color: rgb(from var(--atomic-secondary) r g b / 0.05);
+	position: relative;
+	overflow-x: hidden;
+	overflow-y: auto;
+	max-width: 100%;
+}
+
+.bubble_container {
+    /* Covers the whole screen behind content */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Puts it behind everything */
+    pointer-events: none; /* Allows clicking through it */
+}
+/* Header Styling */
+.w-full{
+	width: 100%;
+}
+
+.z-50{
+	z-index: 50%;
+}
+
+.top-0{
+	top:0px;
+	z-index: 1;
+}
+
+.fixed{
+	position: fixed;
+}
+
+.bg-background {
+    background-color: rgb(from var(--atomic-secondary) r g b / 0.05);
+}
+
+.h-20{
+	height: 5rem;
+}
+
+.flex{
+	display: flex;
+	justify-content: space-between;
+}
+
+.items-center{
+	align-items: center;
+}
+
+.font-bold{
+    font-weight: 700;
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+	text-decoration: none;
+	font-weight: 400;
+	color: var(--atomic-heading);
+}
+
+.w90 {
+    width: 85%;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header_cont{
+	width: 100%;
+	background-color: color-mix(in srgb, var(--atomic-secondary) 5%, white);
+	height: 5rem;
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	border-bottom: 2px solid rgb(from var(--atomic-paragraph) r g b / 0.2);
+	z-index: 1;
+
+}
+
+.text-accent-green{
+color: var(--atomic-secondary);
+}
+
+.lucide{
+	width: 1rem;
+	height: 1rem;
+	vertical-align: middle;
+}
+
+nav{
+	align-items: center;
+	display: flex;
+	gap: 2rem;
+	ul{
+	display: flex;
+	gap: 2rem;
+	list-style-type: none;
+	}}
+
+li a{
+	color: var(--atomic-heading);
+	font-weight: 500;
+	position: relative;
+	text-decoration: none;
+	padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+	display: inline-block;
+	transition: width 0.3s ease-in-out;
+}
+
+li a:hover{
+	color: var(--atomic-primary);
+}
+
+ li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background-color: var(--atomic-primary);
+  transition: width 0.3s ease-in-out;
+}
+
+li a:hover::after {
+	width: 100%;
+}
+
+span{
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	color: var(--atomic-paragraph);
+}
+
+.green-circles {
+    position: absolute;
+    
+    /* 1. POSITIONING via Variables */
+    top: var(--top);
+    left: var(--left);
+    
+    /* 2. SIZING that works on Mobile and Desktop */
+    /* Base size is 15% of viewport width, multiplied by the scale factor */
+    width: calc(15vw * var(--scale));
+    height: calc(15vw * var(--scale));
+    
+    /* Styling */
+    background-color: color-mix(in srgb, var(--atomic-secondary) 5%, transparent);
+    border-radius: 50%;
+    
+    /* 3. ANIMATION (Reusing your float logic) */
+    /* We include the delay variable here */
+    animation: natural-float 8s ease-in-out infinite;
+    animation-delay: var(--delay);
+    
+    /* Performance */
+    will-change: transform;
+}
+
+/* Mobile Tweak: Make bubbles slightly larger on phones so they are visible */
+@media (max-width: 768px) {
+    .green-circles {
+        width: calc(30vw * var(--scale));
+        height: calc(30vw * var(--scale));
+        opacity: 0.6; /* Make them more subtle on small screens */
+    }
+}
+
+slow-pulse animation {
+    transform: scale(1.00001);
+    opacity: 0.300045;
+}
+
+.w-36{
+	width: 9rem;
+}
+
+.w-48{
+	width: 12rem;
+}
+
+.w-28{
+	width: 7rem;
+}
+
+.w-24{
+	width: 6rem;
+}
+
+.w-40{
+	width: 10rem;
+}
+
+.w-16{
+	width: 4rem;
+}
+
+.w-20{
+	width: 5rem;
+}
+
+.top-20{
+	top: 5rem;
+}
+
+.left-1-4{
+	left: 25%;
+}
+
+.top-1-3{
+	top: calc(4065px *0.3);
+}
+
+.right-1-4{
+	right: 25%;
+}
+
+.top-1-2{
+	top: calc(4065*0.5);
+}
+
+.bottom-20{
+	top: calc(4065px - 5rem);
+}
+
+.left-10{
+	left: 2.5rem;
+}
+
+.bottom-40{
+	top: calc(4065px - 10rem)
+}
+
+.left-1-5{
+	left: 20%;
+}
+
+.right-1-3{
+	right: 30%;
+}
+
+@keyframes slide-up-fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.scroll-reveal { /* Use a new generic class for elements that should animate */
+	opacity: 0; 
+    transform: translateY(20px); 
+    
+    /* Apply the animation but keep it paused initially */
+    animation-name: slide-up-fade-in;
+    animation-duration: 0.8s; /* Same speed as before */
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards; /* Ensures element stays at 100% state after animation */
+	animation-play-state: paused; /* KEY: Animation is paused until triggered */
+	/* Allow per-element staggering via the CSS variable `--delay` */
+	animation-delay: var(--delay, 0s);
+}
+
+.is-visible { 
+    animation-play-state: running; /* Unpause and run the animation */
+}
