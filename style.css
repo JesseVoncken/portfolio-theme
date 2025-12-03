@@ -7,7 +7,7 @@
 --muted-foreground: 215.4 16.3% 46.9%;
   border-color: hsl(var(--border));
  font-family: 'Inter', sans-serif;
---mixed-color: color-mix(in srgb, var(--atomic-secondary) 10%, white);
+--mixed-color: color-mix(in srgb, var(--atomic-secondary) 5%, white);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -81,7 +81,7 @@ body{
 }
 
 .w90 {
-    width: 85%;
+    width: 95%;
 }
 
 .mx-auto {
@@ -93,7 +93,7 @@ body{
 	max-width: 1400px;
 	backdrop-filter: blur(20px);
 	margin: 0 auto;
-	margin-top: 60px;
+	margin-top: 20px;
 	background-color: color-mix(in srgb, var(--mixed-color), transparent 30%);
 	border-radius: 12px;
 	height: 5rem;
