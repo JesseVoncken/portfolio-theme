@@ -75,21 +75,21 @@ add_action('wp_body_open', 'add_background_bubbles');
 /**
  * Enqueue scripts and styles for the frontend.
  */
-// function my_scroll_reveal_scripts() {
-//     // 1. Register the script
-//     // Note: The script file path is assumed to be inside a 'js' folder 
-//     // in your theme's root directory: 'yourtheme/js/load.js'
-//     wp_enqueue_script( 
-//         'scroll-reveal-script',                       // Unique handle/name for the script
-//         get_template_directory_uri() . '/js/load.js', // Full URL path to the script file
-//         array('jquery'),                              // Dependencies: This script requires jQuery to be loaded first (if you use jQuery)
-//         '1.0',                                        // Version number (good for cache busting)
-//         true                                          // Load in the footer (improves page speed)
-//     );
-// }
+function my_scroll_reveal_scripts() {
+    // 1. Register the script
+    // Note: The script file path is assumed to be inside a 'js' folder 
+    // in your theme's root directory: 'yourtheme/js/load.js'
+    wp_enqueue_script( 
+        'scroll-reveal-script',                       // Unique handle/name for the script
+        get_template_directory_uri() . '/js/load.js', // Full URL path to the script file
+        array('jquery'),                              // Dependencies: This script requires jQuery to be loaded first (if you use jQuery)
+        '1.0',                                        // Version number (good for cache busting)
+        true                                          // Load in the footer (improves page speed)
+    );
+}
 
-// // 2. Hook into the 'wp_enqueue_scripts' action
-// add_action( 'wp_enqueue_scripts', 'my_scroll_reveal_scripts' );
+// 2. Hook into the 'wp_enqueue_scripts' action
+add_action( 'wp_enqueue_scripts', 'my_scroll_reveal_scripts' );
 
 
 function add_cards_icon_picker_tab( array $tabs ): array {
