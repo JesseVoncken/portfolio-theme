@@ -38,8 +38,6 @@
 				</svg>
 				<span>Meerssen, Netherlands</span>
 			</div>
-			<div class="language_cont">
-			</div>
 		</nav>
 		</div>
 	</div>

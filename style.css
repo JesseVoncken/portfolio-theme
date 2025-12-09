@@ -36,6 +36,7 @@ body{
 /* Header Styling */
 .w-full{
 	width: 100%;
+	margin: 0 auto;
 }
 
 .z-50{
@@ -89,13 +90,17 @@ body{
     margin-right: auto;
 }
 
-.header_cont{
-	max-width: 1400px;
-	backdrop-filter: blur(20px);
+header{
 	margin: 0 auto;
+}
+
+.header_cont{
+	max-width: 1200px;
+	backdrop-filter: blur(20px);
+	margin: 20px auto;
 	margin-top: 20px;
 	background-color: color-mix(in srgb, var(--mixed-color), transparent 30%);
-	border-radius: 12px;
+	border-radius: 8px;
 	height: 5rem;
 	display: flex;
 	align-items: center;
