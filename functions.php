@@ -156,15 +156,25 @@ function jesse_add_local_business_schema() {
     // This schema is good for the entire site, so no need for an 'is_front_page' check, but you can add one if desired.
     ?>
     <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
+        {
+"@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "name": "Jesse Voncken",
-  "image": "https://jessevoncken.nl/wp-content/uploads/2025/11/IMG_4389-scaled-e1763732676472.jpg",
-  "@id": "",
+  "name": "Jesse Voncken Web Development", // More descriptive name
   "url": "https://jessevoncken.nl",
-  "telephone": "623982406",
-  "priceRange": "300",
+  "telephone": "+31623982406", // Changed to international format
+  "priceRange": "$$$", // Changed to text format for price range
+  
+  "owner": { // This links the Person to the Service
+    "@type": "Person",
+    "name": "Jesse Voncken",
+    "jobTitle": "Junior Web Developer", // Crucial for LLMs
+    "sameAs": [
+      "https://www.linkedin.com/in/jesse-voncken-9a67181aa/",
+      "https://www.instagram.com/jesse.voncken/"
+      // Add GitHub here!
+    ]
+  },
+  
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Pastoor M. Sterkenstraat 16",
@@ -172,25 +182,16 @@ function jesse_add_local_business_schema() {
     "postalCode": "6231jg",
     "addressCountry": "NL"
   },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday"
-    ],
-    "opens": "00:00",
-    "closes": "23:59"
-  },
+  "areaServed": [
+    { "@type": "City", "name": "Meerssen" },
+    { "@type": "City", "name": "Maastricht" },
+    { "@type": "State", "name": "Limburg" }
+  ],
   "sameAs": [
     "https://www.instagram.com/jesse.voncken/",
-    "https://www.linkedin.com/in/jesse-voncken-9a67181aa/",
-    "https://jessevoncken.nl"
-  ] 
+    "https://www.linkedin.com/in/jesse-voncken-9a67181aa/"
+    // Note: You can also use the sameAs list here to include the owner's social links again
+  ]
 }
     </script>
     <?php
