@@ -1,40 +1,55 @@
 <?php
 /**
- * The template for displaying all single posts
+ * The template for displaying all pages
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages
+ * and that other 'pages' on your WordPress site may use a
+ * different template.
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
  * @package Portfolio
  */
 
-get_header();
+
+get_template_part('template-parts/organisms/header');
+
+/**
+ * Template Name: Flexible Content Page
+ * * This template loads content via the ACF Flexible Content field.
+ */
+
 ?>
 
-	<main id="primary" class="site-main">
+    <main>
+<?php 
+    // Check if the Flexible Content field ('page_layout') has any rows
+    if ( have_rows('page_layout') ) :
 
-		<?php
-		while ( have_posts() ) :
-			the_post();
+        // Loop through all the layouts
+        while ( have_rows('page_layout') ) : the_row();
 
-			get_template_part( 'template-parts/content', get_post_type() );
+            // Check if the current layout is the 'hero_section'
+            if ( get_row_layout() == 'hero_section' ) :
+                
+                get_template_part('template-parts/organisms/hero-section');
 
-			the_post_navigation(
-				array(
-					'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous:', 'portfolio' ) . '</span> <span class="nav-title">%title</span>',
-					'next_text' => '<span class="nav-subtitle">' . esc_html__( 'Next:', 'portfolio' ) . '</span> <span class="nav-title">%title</span>',
-				)
-			);
+            endif; 
+            if ( get_row_layout() == 'about' ) :
+                
+            get_template_part('template-parts/organisms/about');
 
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
+            endif; 
 
-		endwhile; // End of the loop.
-		?>
+        endwhile; 
 
-	</main><!-- #main -->
+    endif; 
+    
+    ?>
+    </main>
 
 <?php
-get_sidebar();
-get_footer();
+
+get_footer(); // End of the standard WordPress template
+?>
