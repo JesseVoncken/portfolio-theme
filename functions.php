@@ -151,3 +151,48 @@ function jesse_add_person_schema() {
     }
 }
 add_action( 'wp_head', 'jesse_add_person_schema' );
+
+function jesse_add_local_business_schema() {
+    // This schema is good for the entire site, so no need for an 'is_front_page' check, but you can add one if desired.
+    ?>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Jesse Voncken",
+  "image": "https://jessevoncken.nl/wp-content/uploads/2025/11/IMG_4389-scaled-e1763732676472.jpg",
+  "@id": "",
+  "url": "https://jessevoncken.nl",
+  "telephone": "623982406",
+  "priceRange": "300",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Pastoor M. Sterkenstraat 16",
+    "addressLocality": "Meerssen",
+    "postalCode": "6231jg",
+    "addressCountry": "NL"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "00:00",
+    "closes": "23:59"
+  },
+  "sameAs": [
+    "https://www.instagram.com/jesse.voncken/",
+    "https://www.linkedin.com/in/jesse-voncken-9a67181aa/",
+    "https://jessevoncken.nl"
+  ] 
+}
+    </script>
+    <?php
+}
+add_action( 'wp_head', 'jesse_add_local_business_schema' );
