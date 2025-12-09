@@ -118,3 +118,36 @@ function add_embedded_svg_icons( array $icons ): array {
 }
 
 add_filter( 'acf/fields/icon_picker/cards/icons', 'add_embedded_svg_icons' );
+
+function jesse_add_person_schema() {
+    // Check if we are on the homepage or front page, as this schema is best here
+    if ( is_front_page() || is_home() ) {
+        ?>
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org/",
+          "@type": "Person",
+          "name": "Jesse Voncken",
+          "url": "https://jessevoncken.nl/",
+          "image": "https://jessevoncken.nl/wp-content/uploads/2025/11/IMG_4389-scaled-e1763732676472.jpg",
+          "sameAs": [
+            "https://www.instagram.com/jesse.voncken/",
+            "https://www.linkedin.com/in/jesse-voncken-9a67181aa/",
+            // CRITICAL NOTE: Add your GitHub profile here!
+            "https://jessevoncken.nl/"
+          ],
+          "jobTitle": "Junior Web Developer",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Jesse Voncken"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Meerssen, Netherlands"
+          }
+        }
+        </script>
+        <?php
+    }
+}
+add_action( 'wp_head', 'jesse_add_person_schema' );
