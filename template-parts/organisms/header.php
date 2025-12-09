@@ -24,6 +24,7 @@
 <?php wp_body_open(); ?>
 <div id="page">
 	<header id="masthead" class="w-full z-50 top-0 fixed">
+	<div class="header_wrapper">
 	<div class="header_cont">
 		<div class="w90 flex items-center mx-auto">
 		<a class="font-bold text-2xl items-center"><?php bloginfo( 'name' ); ?></a>
@@ -38,9 +39,8 @@
 				</svg>
 				<span>Meerssen, Netherlands</span>
 			</div>
-			<div class="language_cont">
-			</div>
 		</nav>
 		</div>
+	</div>
 	</div>
 	</header><!-- #masthead -->

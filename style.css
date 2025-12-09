@@ -89,22 +89,38 @@ body{
     margin-right: auto;
 }
 
-.header_cont{
-	max-width: 1400px;
-	backdrop-filter: blur(20px);
-	margin: 0 auto;
-	margin-top: 20px;
-	background-color: color-mix(in srgb, var(--mixed-color), transparent 30%);
-	border-radius: 12px;
-	height: 5rem;
-	display: flex;
-	align-items: center;
-	box-sizing: border-box;
-	border: 1px solid rgb(from var(--atomic-paragraph) r g b / 0.2);
-	z-index: 1;
+.header_cont {
+    max-width: 1200px;
+    backdrop-filter: blur(20px);
+    
+    /* MODIFICATION HERE: */
+    margin: 20px 20px 0px 20px; 
+    /* The 4 values correspond to: Top, Right, Bottom, Left. */
+    /* So it sets 20px on the top, 20px on the right, 0px on the bottom, and 20px on the left. */
+    
+    /* ORIGINAL SETTING: */
+    /* margin: 0px auto; (This centers it but removes the side margins) */
+    /* margin-top: 20px; (This is now included in the 4-value 'margin' declaration) */
 
+    background-color: color-mix(in srgb, var(--mixed-color), transparent 30%);
+    border-radius: 8px;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    border: 1px solid rgb(from var(--atomic-paragraph) r g b / 0.2);
+    z-index: 1;
 }
 
+.header_wrapper {
+    /* This centers the entire block on the screen */
+    margin: 0 auto;
+    /* This sets the maximum width for the centered block */
+    max-width: 1240px; 
+    /* NOTE: The max-width here should be 40px larger than the content inside */
+    /* OR, you apply the 20px side margin here: */
+    /* margin: 20px 20px 0 20px; This would set the 20px margin outside the 1200px max-width */
+}
 .text-accent-green{
 color: var(--atomic-secondary);
 }

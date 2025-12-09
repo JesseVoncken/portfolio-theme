@@ -1,5 +1,5 @@
 .hero-section{
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 30px auto 0px auto;
     display: flex;
     position: relative;
@@ -22,7 +22,7 @@
 .hero-section a.scroll-reveal { --delay: 1s; }
 
 .about-section{
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     margin-top: 200px;
 }
