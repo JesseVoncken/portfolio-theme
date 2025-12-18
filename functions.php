@@ -76,17 +76,30 @@ add_action('wp_body_open', 'add_background_bubbles');
  * Enqueue scripts and styles for the frontend.
  */
 function my_scroll_reveal_scripts() {
-    // 1. Register the script
-    // Note: The script file path is assumed to be inside a 'js' folder 
-    // in your theme's root directory: 'yourtheme/js/load.js'
+    // 1. GSAP Core and ScrollTrigger Plugin (Required for the card stack animation)
+    wp_enqueue_script( 'gsap-js', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true );
+    wp_enqueue_script( 'gsap-scroll-trigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array('gsap-js'), '3.12.2', true );
+
+    // 2. Existing Load Script
     wp_enqueue_script( 
-        'scroll-reveal-script',                       // Unique handle/name for the script
-        get_template_directory_uri() . '/js/load.js', // Full URL path to the script file
-        array('jquery'),                              // Dependencies: This script requires jQuery to be loaded first (if you use jQuery)
-        '1.0',                                        // Version number (good for cache busting)
-        true                                          // Load in the footer (improves page speed)
+        'scroll-reveal-script', 
+        get_template_directory_uri() . '/js/load.js', 
+        array('jquery', 'gsap-js', 'gsap-scroll-trigger'), 
+        _S_VERSION, 
+        true 
+    );
+
+    // 3. New Portfolio Scroll Logic
+    // Make sure you create this file at: your-theme/js/portfolio-scroll.js
+    wp_enqueue_script(
+        'portfolio-scroll-logic',
+        get_template_directory_uri() . '/js/portfolio-scroll.js',
+        array('gsap-js', 'gsap-scroll-trigger'),
+        _S_VERSION,
+        true
     );
 }
+add_action( 'wp_enqueue_scripts', 'my_scroll_reveal_scripts' );
 
 // 2. Hook into the 'wp_enqueue_scripts' action
 add_action( 'wp_enqueue_scripts', 'my_scroll_reveal_scripts' );
