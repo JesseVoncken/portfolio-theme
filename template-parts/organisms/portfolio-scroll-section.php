@@ -8,6 +8,8 @@
 $text_content    = get_sub_field('paragraph_text');
 $portfolio_items = get_sub_field('portfolio_posts'); // Relationship field
 
+?>
+
 <section class="o-portfolio-scroll">
     <div class="o-portfolio-scroll__container">
         
