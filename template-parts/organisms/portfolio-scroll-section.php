@@ -1,21 +1,26 @@
 <?php
 /**
  * Organism: Portfolio Scroll Section
- * This handles the layout and provides the 'pinning' target for GSAP.
+ * Path: template-parts/organisms/portfolio-scroll-section.php
  */
 
-$text_content = get_field('paragraph_text'); // ACF field for the text atom
-$portfolio_items = get_field('portfolio_posts'); // ACF Relationship/Post Object field
+// Fetch data from the current Flexible Content row
+$text_content    = get_sub_field('paragraph_text');
+$portfolio_items = get_sub_field('portfolio_posts'); // Relationship field
 
-$block_id = 'o-portfolio-scroll-' . $block['id'];
+// Safety check
+if ( ! $portfolio_items ) {
+    return;
+}
 ?>
 
-<section id="<?php echo esc_attr($block_id); ?>" class="o-portfolio-scroll">
+<section class="o-portfolio-scroll">
     <div class="o-portfolio-scroll__container">
         
         <div class="o-portfolio-scroll__text-column">
             <?php 
-            get_template_part('parts/atoms/text', null, [
+            // Pass data to the Text Atom
+            get_template_part('template-parts/atoms/text', null, [
                 'paragraph_text' => $text_content
             ]); 
             ?>
@@ -23,7 +28,8 @@ $block_id = 'o-portfolio-scroll-' . $block['id'];
 
         <div class="o-portfolio-scroll__visual-column">
             <?php 
-            get_template_part('parts/molecules/card-stack', null, [
+            // Pass data to the Card Stack Molecule
+            get_template_part('template-parts/molecules/card-stack', null, [
                 'portfolio_items' => $portfolio_items
             ]); 
             ?>

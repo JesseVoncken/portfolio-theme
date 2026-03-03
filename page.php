@@ -42,6 +42,14 @@ get_template_part('template-parts/organisms/header');
 
             endif; 
 
+            // Add this inside your while( have_rows('page_layout') ) loop in page.php
+
+            if ( get_row_layout() == 'portfolio_scroll' ) :
+    
+             get_template_part('template-parts/organisms/portfolio-scroll-section');
+
+            endif;
+
         endwhile; 
 
     endif; 
