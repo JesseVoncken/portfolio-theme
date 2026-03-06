@@ -317,10 +317,6 @@ slow-pulse animation {
 
 /* Portfolio scroll */
 
-.o-portfolio-scroll {
-    background-color: #fff; /* Ensure a solid background for pinning */
-}
-
 .o-portfolio-scroll__container {
     display: flex;
     align-items: center;
