@@ -315,42 +315,46 @@ slow-pulse animation {
     animation-play-state: running; /* Unpause and run the animation */
 }
 
+
 /* Portfolio scroll */
 
-.o-portfolio-scroll {
-    background-color: #fff; /* Ensure a solid background for pinning */
-}
-
-.o-portfolio-scroll__container {
-    display: flex;
+.m-portfolio-reveal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
-    justify-content: space-between;
-    min-height: 100vh;
-    padding: 0 10%;
-    gap: 5vw;
+    gap: 80px;
+    width: 100%;
 }
 
-.o-portfolio-scroll__text-column {
-    flex: 1;
-}
-
-.o-portfolio-scroll__visual-column {
-    flex: 1;
+/* Text Pane Styling */
+.m-portfolio-reveal__text-pane {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 300px; /* Adjust based on content */
 }
 
-/* The Molecule Container */
+.m-portfolio-reveal__text-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.m-portfolio-reveal__text-item.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Card Pane Styling */
 .m-card-stack {
     position: relative;
     width: 100%;
-    max-width: 500px;
-    aspect-ratio: 4 / 5; /* Adjust based on your card design */
+    aspect-ratio: 1 / 1;
 }
 
-/* The Molecule Items (Stacked) */
 .m-card-stack__item {
     position: absolute;
     top: 0;
@@ -358,7 +362,6 @@ slow-pulse animation {
     width: 100%;
     height: 100%;
     background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.12);
 }
