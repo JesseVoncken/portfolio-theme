@@ -318,9 +318,14 @@ slow-pulse animation {
 
 /* Portfolio scroll */
 
+<<<<<<< HEAD
 .m-portfolio-reveal {
     display: grid;
     grid-template-columns: 1fr 1fr;
+=======
+.o-portfolio-scroll__container {
+    display: flex;
+>>>>>>> origin/main
     align-items: center;
     gap: 80px;
     width: 100%;
