@@ -318,44 +318,34 @@ slow-pulse animation {
 
 /* Portfolio scroll */
 
-.m-portfolio-reveal {
+/* Layout */
+.m-portfolio-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.2fr 0.8fr; /* Text gets more room */
     align-items: center;
-    gap: 80px;
-    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 100px;
 }
 
-/* Text Pane Styling */
-.m-portfolio-reveal__text-pane {
+/* Typography on the left */
+.a-portfolio-display-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.1;
+    color: #4A90A4; /* Match that teal/blue color */
+    margin-bottom: 2rem;
+}
+
+/* The Card Stack (The "Small" logic) */
+.m-card-stack-container {
     position: relative;
-    height: 300px; /* Adjust based on content */
+    width: 400px; /* This makes the cards "super small" compared to the screen */
+    aspect-ratio: 1 / 1.1;
+    margin-left: auto;
 }
 
-.m-portfolio-reveal__text-item {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-}
-
-.m-portfolio-reveal__text-item.is-active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-/* Card Pane Styling */
-.m-card-stack {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-}
-
-.m-card-stack__item {
+.m-card-stack-item {
     position: absolute;
     top: 0;
     left: 0;
@@ -363,5 +353,9 @@ slow-pulse animation {
     height: 100%;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+    box-shadow: 0 10px 50px rgba(0,0,0,0.08);
+    
+    /* This creates the "peek" effect for cards underneath */
+    transform: translateY(var(--offset)); 
+    transition: transform 0.4s ease;
 }

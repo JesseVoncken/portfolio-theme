@@ -1,33 +1,31 @@
-const sections = document.querySelectorAll('.o-portfolio-scroll');
+const tl = gsap.timeline({
+    scrollTrigger: {
+        trigger: ".o-portfolio-scroll",
+        start: "top top",
+        end: () => "+=" + (cards.length * 100) + "%",
+        pin: true,
+        scrub: 1
+    }
+});
 
-sections.forEach((section) => {
-    const cards = gsap.utils.toArray(section.querySelectorAll('.m-card-stack__item'));
-    const texts = gsap.utils.toArray(section.querySelectorAll('.m-portfolio-reveal__text-item'));
+cards.forEach((card, i) => {
+    if (i < cards.length - 1) {
+        // Slide current card out
+        tl.to(card, { 
+            y: -200, 
+            opacity: 0, 
+            rotate: -5,
+            duration: 1 
+        }, i);
 
-    const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: () => "+=" + (cards.length * 100) + "%",
-            pin: true,
-            scrub: 1
-        }
-    });
+        // Shift the next cards up slightly to "fill the gap"
+        tl.to(cards.slice(i + 1), {
+            y: "-=8", // Reduces the --offset we set in CSS
+            duration: 1
+        }, i);
 
-    cards.forEach((card, i) => {
-        if (i < cards.length - 1) {
-            // Slide card up
-            tl.to(card, { 
-                yPercent: -120, 
-                ease: "power1.inOut" 
-            }, i);
-
-            // Toggle Text active states
-            // We use a callback to swap classes for CSS transitions
-            tl.call(() => {
-                texts.forEach(t => t.classList.remove('is-active'));
-                texts[i + 1].classList.add('is-active');
-            }, null, i + 0.5); 
-        }
-    });
+        // Swap Text
+        tl.to(texts[i], { opacity: 0, visibility: 'hidden', duration: 0.3 }, i);
+        tl.to(texts[i+1], { opacity: 1, visibility: 'visible', duration: 0.3 }, i + 0.3);
+    }
 });
