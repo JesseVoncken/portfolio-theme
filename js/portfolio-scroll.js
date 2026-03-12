@@ -2,7 +2,7 @@ const tl = gsap.timeline({
     scrollTrigger: {
         trigger: ".o-portfolio-scroll",
         start: "top top",
-        end: () => "+=" + (cards.length * 100) + "%",
+        end: () => "+=" + (cards.length * 150) + "%", // Longer scroll feel
         pin: true,
         scrub: 1
     }
@@ -10,22 +10,11 @@ const tl = gsap.timeline({
 
 cards.forEach((card, i) => {
     if (i < cards.length - 1) {
-        // Slide current card out
-        tl.to(card, { 
-            y: -200, 
-            opacity: 0, 
-            rotate: -5,
-            duration: 1 
-        }, i);
-
-        // Shift the next cards up slightly to "fill the gap"
-        tl.to(cards.slice(i + 1), {
-            y: "-=8", // Reduces the --offset we set in CSS
-            duration: 1
-        }, i);
-
-        // Swap Text
-        tl.to(texts[i], { opacity: 0, visibility: 'hidden', duration: 0.3 }, i);
-        tl.to(texts[i+1], { opacity: 1, visibility: 'visible', duration: 0.3 }, i + 0.3);
+        // Slide top card out
+        tl.to(card, { yPercent: -120, opacity: 0, ease: "power2.inOut" }, i);
+        
+        // Switch text visibility
+        tl.to(texts[i], { opacity: 0, y: -20, duration: 0.3 }, i);
+        tl.to(texts[i+1], { opacity: 1, y: 0, duration: 0.3 }, i + 0.3);
     }
 });

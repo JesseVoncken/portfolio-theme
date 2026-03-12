@@ -147,4 +147,76 @@ p{
     border-radius: 12px;
 }
 
+/* card */
+
+.a-portfolio-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Image/Placeholder Area */
+.a-portfolio-card__image-container {
+    height: 50%; /* Image takes top half */
+    background: #eeeeee; /* Light gray from reference */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bbbbbb;
+}
+
+.a-portfolio-card__image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Content Area */
+.a-portfolio-card__content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.a-portfolio-card__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* The Blue/Teal Icon Box */
+.a-portfolio-card__icon {
+    width: 40px;
+    height: 40px;
+    background: #eef7f9; /* Soft teal tint */
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4a90a4;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.a-portfolio-card__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.2;
+}
+
+.a-portfolio-card__description {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #667085; /* Muted gray text */
+}
+
 
