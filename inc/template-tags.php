@@ -4,7 +4,7 @@
  *
  * Eventually, some of the functionality here could be replaced by core features.
  *
- * @package Portfolio
+ * @package portfolio
  */
 
 if ( ! function_exists( 'portfolio_posted_on' ) ) :

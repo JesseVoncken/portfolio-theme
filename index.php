@@ -9,49 +9,35 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package Portfolio
+ * @package portfolio
  */
 
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+	<main id="primary" class="site-main home-hero-page">
+		<section class="home-hero" aria-label="Homepage hero section">
+			<div class="home-hero__inner">
+				<h1 class="home-hero__title">
+					<span class="home-hero__intro">Hey, ik ben</span>
+					<span class="home-hero__name-wrap">
+						<span class="home-hero__name">Jesse</span>
+						<img class="home-hero__swirl" src="<?php echo esc_url( get_template_directory_uri() . '/assets/swirl.svg' ); ?>" alt="" aria-hidden="true">
+					</span>
+				</h1>
 
-		<?php
-		if ( have_posts() ) :
+				<p class="home-hero__subtitle">
+					Ik ben een <b>webdeveloper</b> gespecialiseerd in het bouwen van  <b>snelle, gebruiksvriendelijke</b>  websites.
+				</p>
 
-			if ( is_home() && ! is_front_page() ) :
-				?>
-				<header>
-					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-				</header>
-				<?php
-			endif;
+				<a class="home-hero__button" href="mailto:hello@jesse.nl">Stuur een bericht</a>
 
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
-
-				/*
-				 * Include the Post-Type-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', get_post_type() );
-
-			endwhile;
-
-			the_posts_navigation();
-
-		else :
-
-			get_template_part( 'template-parts/content', 'none' );
-
-		endif;
-		?>
-
+				<div class="home-hero__spline-wrap">
+					<spline-viewer url="https://prod.spline.design/ewmLBQwLX4Wgfr9f/scene.splinecode"></spline-viewer>
+				</div>
+			</div>
+		</section>
 	</main><!-- #main -->
 
 <?php
-get_sidebar();
 get_footer();

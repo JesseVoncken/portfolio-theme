@@ -1,212 +1,181 @@
 <?php
 /**
- * Portfolio functions and definitions
+ * portfolio functions and definitions
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
- * @package Portfolio
+ * @package portfolio
  */
 
 if ( ! defined( '_S_VERSION' ) ) {
-    // Replace the version number of the theme on each release.
-    define( '_S_VERSION', '1.0.0' );
+	// Replace the version number of the theme on each release.
+	define( '_S_VERSION', '1.0.0' );
 }
 
 /**
- * Load theme functions from /inc/ directory.
- * This function must be in functions.php to run first.
+ * Sets up theme defaults and registers support for various WordPress features.
+ *
+ * Note that this function is hooked into the after_setup_theme hook, which
+ * runs before the init hook. The init hook is too late for some features, such
+ * as indicating support for post thumbnails.
  */
+function portfolio_setup() {
+	/*
+		* Make theme available for translation.
+		* Translations can be filed in the /languages/ directory.
+		* If you're building a theme based on portfolio, use a find and replace
+		* to change 'portfolio' to the name of your theme in all the template files.
+		*/
+	load_theme_textdomain( 'portfolio', get_template_directory() . '/languages' );
 
-// Core setup function must stay here or be required first.
-require get_template_directory() . '/inc/theme-setup.php';
+	// Add default posts and comments RSS feed links to head.
+	add_theme_support( 'automatic-feed-links' );
 
-// Load other logical components.
-require get_template_directory() . '/inc/enqueue.php';
-require get_template_directory() . '/inc/gutenberg-disable.php';
+	/*
+		* Let WordPress manage the document title.
+		* By adding theme support, we declare that this theme does not use a
+		* hard-coded <title> tag in the document head, and expect WordPress to
+		* provide it for us.
+		*/
+	add_theme_support( 'title-tag' );
+
+	/*
+		* Enable support for Post Thumbnails on posts and pages.
+		*
+		* @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
+		*/
+	add_theme_support( 'post-thumbnails' );
+
+	// This theme uses wp_nav_menu() in one location.
+	register_nav_menus(
+		array(
+			'menu-1' => esc_html__( 'Primary', 'portfolio' ),
+		)
+	);
+
+	/*
+		* Switch default core markup for search form, comment form, and comments
+		* to output valid HTML5.
+		*/
+	add_theme_support(
+		'html5',
+		array(
+			'search-form',
+			'comment-form',
+			'comment-list',
+			'gallery',
+			'caption',
+			'style',
+			'script',
+		)
+	);
+
+	// Set up the WordPress core custom background feature.
+	add_theme_support(
+		'custom-background',
+		apply_filters(
+			'portfolio_custom_background_args',
+			array(
+				'default-color' => 'ffffff',
+				'default-image' => '',
+			)
+		)
+	);
+
+	// Add theme support for selective refresh for widgets.
+	add_theme_support( 'customize-selective-refresh-widgets' );
+
+	/**
+	 * Add support for core custom logo.
+	 *
+	 * @link https://codex.wordpress.org/Theme_Logo
+	 */
+	add_theme_support(
+		'custom-logo',
+		array(
+			'height'      => 250,
+			'width'       => 250,
+			'flex-width'  => true,
+			'flex-height' => true,
+		)
+	);
+}
+add_action( 'after_setup_theme', 'portfolio_setup' );
+
+/**
+ * Set the content width in pixels, based on the theme's design and stylesheet.
+ *
+ * Priority 0 to make it available to lower priority callbacks.
+ *
+ * @global int $content_width
+ */
+function portfolio_content_width() {
+	$GLOBALS['content_width'] = apply_filters( 'portfolio_content_width', 640 );
+}
+add_action( 'after_setup_theme', 'portfolio_content_width', 0 );
+
+/**
+ * Register widget area.
+ *
+ * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
+ */
+function portfolio_widgets_init() {
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Sidebar', 'portfolio' ),
+			'id'            => 'sidebar-1',
+			'description'   => esc_html__( 'Add widgets here.', 'portfolio' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+}
+add_action( 'widgets_init', 'portfolio_widgets_init' );
+
+/**
+ * Enqueue scripts and styles.
+ */
+function portfolio_scripts() {
+	wp_enqueue_style( 'portfolio-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@400;500;700&display=swap', array(), null );
+	wp_enqueue_style( 'portfolio-style', get_stylesheet_uri(), array(), _S_VERSION );
+	wp_style_add_data( 'portfolio-style', 'rtl', 'replace' );
+
+	wp_enqueue_script( 'portfolio-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'portfolio_scripts' );
+
+/**
+ * Implement the Custom Header feature.
+ */
+require get_template_directory() . '/inc/custom-header.php';
+
+/**
+ * Custom template tags for this theme.
+ */
 require get_template_directory() . '/inc/template-tags.php';
-require get_template_directory() . '/inc/colors.php';
-
-// You can keep custom, short functions here if you prefer, but often they belong in a dedicated file.
-// load_inter_font() and add_background_bubbles() are okay to keep here temporarily, 
-// but enqueueing scripts should ideally be in /inc/enqueue.php.
-
-function load_theme_font() {
-    wp_enqueue_style( 'inter-font', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap', false );
-
-    wp_enqueue_style( 'google-fonts-syne', 'https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap', array(), null );
-
-    wp_enqueue_style( 
-        'Unbounded-font', 
-        'https://fonts.googleapis.com/css2?family=Unbounded:wght@700;900&display=swap', 
-        array(), 
-        null 
-    );
-}
-add_action( 'wp_enqueue_scripts', 'load_theme_font' );
-
-function add_background_bubbles() {
-    // Define your bubbles here. 
-    // t = top%, l = left%, s = size (scale factor), d = delay (animation delay)
-    $bubbles = [
-        ['t' => '10%',  'l' => '5%',   's' => 1.0, 'd' => '0s'],   // Top Left
-        ['t' => '20%',  'l' => '80%',  's' => 1.5, 'd' => '2s'],   // Top Right (Large)
-        ['t' => '60%',  'l' => '15%',  's' => 0.8, 'd' => '1s'],   // Middle Left
-        ['t' => '85%',  'l' => '70%',  's' => 1.2, 'd' => '4s'],   // Bottom Right
-        ['t' => '40%',  'l' => '50%',  's' => 0.6, 'd' => '3s'],   // Center (Small)
-    ];
-
-    ?>
-    <div class="bubble_container">
-        <?php foreach ( $bubbles as $bubble ) : ?>
-            <div class="green-circles" 
-                 style="
-                    --top: <?php echo $bubble['t']; ?>; 
-                    --left: <?php echo $bubble['l']; ?>; 
-                    --scale: <?php echo $bubble['s']; ?>;
-                    --delay: <?php echo $bubble['d']; ?>;
-                 ">
-            </div>
-        <?php endforeach; ?>
-    </div>
-    <?php
-}
-add_action('wp_body_open', 'add_background_bubbles');
 
 /**
- * Enqueue scripts and styles for the frontend.
+ * Functions which enhance the theme by hooking into WordPress.
  */
-function my_scroll_reveal_scripts() {
-    // 1. GSAP Core and ScrollTrigger Plugin (Required for the card stack animation)
-    wp_enqueue_script( 'gsap-js', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true );
-    wp_enqueue_script( 'gsap-scroll-trigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array('gsap-js'), '3.12.2', true );
+require get_template_directory() . '/inc/template-functions.php';
 
-    // 2. Existing Load Script
-    wp_enqueue_script( 
-        'scroll-reveal-script', 
-        get_template_directory_uri() . '/js/load.js', 
-        array('jquery', 'gsap-js', 'gsap-scroll-trigger'), 
-        _S_VERSION, 
-        true 
-    );
+/**
+ * Customizer additions.
+ */
+require get_template_directory() . '/inc/customizer.php';
 
-    // 3. New Portfolio Scroll Logic
-    // Make sure you create this file at: your-theme/js/portfolio-scroll.js
-    wp_enqueue_script(
-        'portfolio-scroll-logic',
-        get_template_directory_uri() . '/js/portfolio-scroll.js',
-        array('gsap-js', 'gsap-scroll-trigger'),
-        _S_VERSION,
-        true
-    );
-}
-add_action( 'wp_enqueue_scripts', 'my_scroll_reveal_scripts' );
+require get_template_directory() . '/inc/background-grid.php';
 
-// 2. Hook into the 'wp_enqueue_scripts' action
-add_action( 'wp_enqueue_scripts', 'my_scroll_reveal_scripts' );
-
-
-function add_cards_icon_picker_tab( array $tabs ): array {
-    $tabs['cards'] = 'Cards';
-    return $tabs;
-}
-add_filter( 'acf/fields/icon_picker/tabs', 'add_cards_icon_picker_tab' );
-
-function add_embedded_svg_icons( array $icons ): array {
-    // Define the base URL path to your custom icons folder
-    $base_icon_url = get_template_directory_uri() . '/icons/';
-
-    return array(
-        array(
-            // CORRECTED: Use the full base URL to locate the SVG file
-            'url'   => $base_icon_url . 'brackets.svg', 
-            'key'   => 'brackets', 
-            'label' => 'brackets', 
-        ),
-        array(
-            'url'   => $base_icon_url . 'layout.svg', 
-            'key'   => 'layout',
-            'label' => 'layout',
-        ),
-    );
+/**
+ * Load Jetpack compatibility file.
+ */
+if ( defined( 'JETPACK__VERSION' ) ) {
+	require get_template_directory() . '/inc/jetpack.php';
 }
 
-add_filter( 'acf/fields/icon_picker/cards/icons', 'add_embedded_svg_icons' );
-
-function jesse_add_person_schema() {
-    // Check if we are on the homepage or front page, as this schema is best here
-    if ( is_front_page() || is_home() ) {
-        ?>
-        <script type="application/ld+json">
-        {
-          "@context": "https://schema.org/",
-          "@type": "Person",
-          "name": "Jesse Voncken",
-          "url": "https://jessevoncken.nl/",
-          "image": "https://jessevoncken.nl/wp-content/uploads/2025/11/IMG_4389-scaled-e1763732676472.jpg",
-          "sameAs": [
-            "https://www.instagram.com/jesse.voncken/",
-            "https://www.linkedin.com/in/jesse-voncken-9a67181aa/",
-            // CRITICAL NOTE: Add your GitHub profile here!
-            "https://jessevoncken.nl/"
-          ],
-          "jobTitle": "Junior Web Developer",
-          "worksFor": {
-            "@type": "Organization",
-            "name": "Jesse Voncken"
-          },
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Meerssen, Netherlands"
-          }
-        }
-        </script>
-        <?php
-    }
-}
-add_action( 'wp_head', 'jesse_add_person_schema' );
-
-function jesse_add_local_business_schema() {
-    // This schema is good for the entire site, so no need for an 'is_front_page' check, but you can add one if desired.
-    ?>
-    <script type="application/ld+json">
-        {
-"@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Jesse Voncken Web Development", // More descriptive name
-  "url": "https://jessevoncken.nl",
-  "telephone": "+31623982406", // Changed to international format
-  "priceRange": "$$$", // Changed to text format for price range
-  
-  "owner": { // This links the Person to the Service
-    "@type": "Person",
-    "name": "Jesse Voncken",
-    "jobTitle": "Junior Web Developer", // Crucial for LLMs
-    "sameAs": [
-      "https://www.linkedin.com/in/jesse-voncken-9a67181aa/",
-      "https://www.instagram.com/jesse.voncken/"
-      // Add GitHub here!
-    ]
-  },
-  
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Pastoor M. Sterkenstraat 16",
-    "addressLocality": "Meerssen",
-    "postalCode": "6231jg",
-    "addressCountry": "NL"
-  },
-  "areaServed": [
-    { "@type": "City", "name": "Meerssen" },
-    { "@type": "City", "name": "Maastricht" },
-    { "@type": "State", "name": "Limburg" }
-  ],
-  "sameAs": [
-    "https://www.instagram.com/jesse.voncken/",
-    "https://www.linkedin.com/in/jesse-voncken-9a67181aa/"
-    // Note: You can also use the sameAs list here to include the owner's social links again
-  ]
-}
-    </script>
-    <?php
-}
-add_action( 'wp_head', 'jesse_add_local_business_schema' );
