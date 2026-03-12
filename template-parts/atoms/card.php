@@ -1,34 +1,38 @@
 <?php
 /**
  * Atom: Portfolio Card
- * * @param array $args {
- * @var string $image_url    The URL of the featured image.
- * @var string $title        The project title.
- * @var string $category     The project category or tag.
- * @var string $permalink    The link to the single portfolio page.
- * }
+ * Path: template-parts/atoms/card.php
  */
 
 $image_url = $args['image_url'] ?? '';
 $title     = $args['title'] ?? 'Project Title';
-$category  = $args['category'] ?? 'Category';
-$permalink = $args['permalink'] ?? '#';
-
-// Ensure we have a placeholder if no image exists
-if (empty($image_url)) {
-    $image_url = get_template_directory_uri() . '/assets/images/placeholder.jpg';
-}
+$desc      = $args['desc'] ?? 'Project description goes here...';
 ?>
 
 <div class="a-portfolio-card">
-    <a href="<?php echo esc_url($permalink); ?>" class="a-portfolio-card__link">
-        <div class="a-portfolio-card__image-wrapper">
-            <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>" class="a-portfolio-card__image">
-        </div>
-        
-        <div class="a-portfolio-card__meta">
-            <span class="a-portfolio-card__category"><?php echo esc_html($category); ?></span>
+    <div class="a-portfolio-card__image-container">
+        <?php if ( $image_url ) : ?>
+            <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+        <?php else : ?>
+            <div class="a-portfolio-card__placeholder">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <div class="a-portfolio-card__content">
+        <div class="a-portfolio-card__header">
+            <div class="a-portfolio-card__icon">
+                <span>‹/›</span>
+            </div>
             <h3 class="a-portfolio-card__title"><?php echo esc_html($title); ?></h3>
         </div>
-    </a>
+        <p class="a-portfolio-card__description">
+            <?php echo esc_html($desc); ?>
+        </p>
+    </div>
 </div>
