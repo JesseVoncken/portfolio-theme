@@ -2,56 +2,70 @@
 /**
  * The main template file
  *
- * This is the most generic template file in a WordPress theme
- * and one of the two required files for a theme (the other being style.css).
- * It is used to display a page when nothing more specific matches a query.
- * E.g., it puts together the home page when no home.php file exists.
- *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
- *
- * @package Portfolio
+ * @package portfolio
  */
 
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+    <main id="primary" class="site-main home-hero-page">
+        <section class="home-hero" aria-label="Homepage hero section">
+            <div class="home-hero__inner">
+                <h1 class="home-hero__title">
+                    <span class="home-hero__intro">Hey, ik ben</span>
+                    <span class="home-hero__name-wrap">
+                        <span class="home-hero__name">Jesse</span>
+                        <img class="home-hero__swirl" src="<?php echo esc_url( get_template_directory_uri() . '/assets/swirl.svg' ); ?>" alt="" aria-hidden="true">
+                    </span>
+                </h1>
 
-		<?php
-		if ( have_posts() ) :
+                <p class="home-hero__subtitle">
+                    Ik ben een <b>webdeveloper</b> gespecialiseerd in het bouwen van <b>snelle, gebruiksvriendelijke</b> websites.
+                </p>
 
-			if ( is_home() && ! is_front_page() ) :
-				?>
-				<header>
-					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-				</header>
-				<?php
-			endif;
+                <div class="home-hero__spline-wrap" style="position: relative; width: 100%; height: 550px; display: flex; justify-content: center; align-items: center;">
+                    <canvas id="hero-spline-canvas" style="width: 100%; height: 100%; outline: none;"></canvas>
+                </div>
 
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
+                <script type="module">
+    import { Application } from 'https://unpkg.com/@splinetool/runtime';
 
-				/*
-				 * Include the Post-Type-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', get_post_type() );
+    const canvas = document.getElementById('hero-spline-canvas');
+    const app = new Application(canvas);
 
-			endwhile;
+    try {
+        await app.load('https://prod.spline.design/ewmLBQwLX4Wgfr9f/scene.splinecode');
+        console.log('Spline scene successfully loaded!');
 
-			the_posts_navigation();
+        const maxAngle = 15; // Max tilt in degrees
 
-		else :
+        const updateSplineMousePosition = (event) => {
+            if (window.scrollY > 600) return;
 
-			get_template_part( 'template-parts/content', 'none' );
+            // Normalized coordinates (-1 to 1)
+            const normX = (event.clientX / window.innerWidth) * 2 - 1;
+            const normY = (event.clientY / window.innerHeight) * 2 - 1;
 
-		endif;
-		?>
+            const mouseX = Number((normX * maxAngle).toFixed(2));
+            const mouseY = Number((normY * maxAngle).toFixed(2)); // Flipped to positive
 
-	</main><!-- #main -->
+            console.log(`Spline Variables (deg) -> mouseX: ${mouseX}°, mouseY: ${mouseY}°`);
+
+            // Pass values to Spline
+            app.setVariable('mouseX', mouseX);
+            app.setVariable('mouseY', mouseY);
+        };
+
+        window.addEventListener('pointermove', updateSplineMousePosition, { passive: true });
+
+    } catch (error) {
+        console.error('Spline failed to load:', error);
+    }
+</script>
+            </div>
+        </section>
+    </main><!-- #main -->
 
 <?php
-get_sidebar();
 get_footer();

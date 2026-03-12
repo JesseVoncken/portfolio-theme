@@ -9,55 +9,30 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package Portfolio
+ * @package portfolio
  */
 
-
-get_template_part('template-parts/organisms/header');
-
-/**
- * Template Name: Flexible Content Page
- * * This template loads content via the ACF Flexible Content field.
- */
-
+get_header();
 ?>
 
-    <main>
-<?php 
-    // Check if the Flexible Content field ('page_layout') has any rows
-    if ( have_rows('page_layout') ) :
+	<main id="primary" class="site-main">
 
-        // Loop through all the layouts
-        while ( have_rows('page_layout') ) : the_row();
+		<?php
+		while ( have_posts() ) :
+			the_post();
 
-            // Check if the current layout is the 'hero_section'
-            if ( get_row_layout() == 'hero_section' ) :
-                
-                get_template_part('template-parts/organisms/hero-section');
+			get_template_part( 'template-parts/content', 'page' );
 
-            endif; 
-            if ( get_row_layout() == 'about' ) :
-                
-            get_template_part('template-parts/organisms/about');
+			// If comments are open or we have at least one comment, load up the comment template.
+			if ( comments_open() || get_comments_number() ) :
+				comments_template();
+			endif;
 
-            endif; 
+		endwhile; // End of the loop.
+		?>
 
-            // Add this inside your while( have_rows('page_layout') ) loop in page.php
-
-            if ( get_row_layout() == 'portfolio_scroll' ) :
-    
-             get_template_part('template-parts/organisms/portfolio-scroll-section');
-
-            endif;
-
-        endwhile; 
-
-    endif; 
-    
-    ?>
-    </main>
+	</main><!-- #main -->
 
 <?php
-
-get_footer(); // End of the standard WordPress template
-?>
+get_sidebar();
+get_footer();
