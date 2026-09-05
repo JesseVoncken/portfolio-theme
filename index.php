@@ -24,45 +24,9 @@ get_header();
                     Ik ben een <b>webdeveloper</b> gespecialiseerd in het bouwen van <b>snelle, gebruiksvriendelijke</b> websites.
                 </p>
 
-                <div class="home-hero__spline-wrap" style="position: relative; width: 100%; height: 550px; display: flex; justify-content: center; align-items: center;">
-                    <canvas id="hero-spline-canvas" style="width: 100%; height: 100%; outline: none;"></canvas>
+                <div class="home-hero__scene-wrap">
+                    <canvas id="hero-three-canvas" aria-hidden="true"></canvas>
                 </div>
-
-                <script type="module">
-    import { Application } from 'https://unpkg.com/@splinetool/runtime';
-
-    const canvas = document.getElementById('hero-spline-canvas');
-    const app = new Application(canvas);
-
-    try {
-        await app.load('https://prod.spline.design/ewmLBQwLX4Wgfr9f/scene.splinecode');
-        console.log('Spline scene successfully loaded!');
-
-        const maxAngle = 15; // Max tilt in degrees
-
-        const updateSplineMousePosition = (event) => {
-            if (window.scrollY > 600) return;
-
-            // Normalized coordinates (-1 to 1)
-            const normX = (event.clientX / window.innerWidth) * 2 - 1;
-            const normY = (event.clientY / window.innerHeight) * 2 - 1;
-
-            const mouseX = Number((normX * maxAngle).toFixed(2));
-            const mouseY = Number((normY * maxAngle).toFixed(2)); // Flipped to positive
-
-            console.log(`Spline Variables (deg) -> mouseX: ${mouseX}°, mouseY: ${mouseY}°`);
-
-            // Pass values to Spline
-            app.setVariable('mouseX', mouseX);
-            app.setVariable('mouseY', mouseY);
-        };
-
-        window.addEventListener('pointermove', updateSplineMousePosition, { passive: true });
-
-    } catch (error) {
-        console.error('Spline failed to load:', error);
-    }
-</script>
             </div>
         </section>
     </main><!-- #main -->

@@ -144,11 +144,25 @@ function portfolio_scripts() {
 
 	wp_enqueue_script( 'portfolio-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 
+	if ( is_front_page() ) {
+		wp_enqueue_script( 'portfolio-home-hero-three', get_template_directory_uri() . '/js/home-hero-three.js', array(), filemtime( get_template_directory() . '/js/home-hero-three.js' ), true );
+	}
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'portfolio_scripts' );
+
+function portfolio_home_hero_three_module( $tag, $handle ) {
+	if ( 'portfolio-home-hero-three' === $handle ) {
+		$tag = preg_replace( '/\s+type=([\"\']).*?\1/', '', $tag, 1 );
+		return str_replace( '<script ', '<script type="module" ', $tag );
+	}
+
+	return $tag;
+}
+add_filter( 'script_loader_tag', 'portfolio_home_hero_three_module', 10, 2 );
 
 /**
  * Implement the Custom Header feature.
@@ -178,4 +192,3 @@ require get_template_directory() . '/inc/background-grid.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
-
