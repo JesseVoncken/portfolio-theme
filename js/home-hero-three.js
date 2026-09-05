@@ -40,6 +40,19 @@ if (canvas) {
 
 	const frame = new THREE.Mesh(new THREE.ExtrudeGeometry(roundedShape(3.35, 3.35, 0.34), { depth: 0.12, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.04, bevelSegments: 3, curveSegments: 24 }), new THREE.MeshBasicMaterial({ color: 0x121212 }));
 	const photo = new THREE.Mesh(new THREE.ShapeGeometry(roundedShape(3.05, 3.05, 0.22)), new THREE.MeshBasicMaterial({ color: 0xf0f0f0 }));
+	const shadowCanvas = document.createElement('canvas');
+	shadowCanvas.width = 256;
+	shadowCanvas.height = 256;
+	const shadowContext = shadowCanvas.getContext('2d');
+	const shadowGradient = shadowContext.createRadialGradient(128, 128, 18, 128, 128, 128);
+	shadowGradient.addColorStop(0, 'rgba(0, 0, 0, 0.24)');
+	shadowGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+	shadowContext.fillStyle = shadowGradient;
+	shadowContext.fillRect(0, 0, 256, 256);
+	const shadow = new THREE.Mesh(new THREE.PlaneGeometry(3.7, 3.7), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(shadowCanvas), transparent: true, depthWrite: false }));
+	shadow.position.set(0.08, -0.1, -0.08);
+	shadow.scale.y = 0.7;
+	card.add(shadow);
 	photo.position.z = 0.22;
 	card.add(frame, photo);
 
