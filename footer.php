@@ -28,8 +28,6 @@
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 
-<script type="module" src="https://cdn.spline.design/@splinetool/viewer@2.0.5/build/spline-viewer.js"></script>
-
 <?php wp_footer(); ?>
 
 </body>
