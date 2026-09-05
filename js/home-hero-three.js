@@ -47,7 +47,7 @@ if (canvas) {
 		loadedTexture.colorSpace = THREE.SRGBColorSpace;
 		loadedTexture.wrapS = THREE.ClampToEdgeWrapping;
 		loadedTexture.wrapT = THREE.ClampToEdgeWrapping;
-		loadedTexture.repeat.set(0.1, 0.15);
+		loadedTexture.repeat.set(0.105, 0.15);
 		loadedTexture.offset.set(0.55, 0.57);
 		photo.material.map = loadedTexture;
 		photo.material.color.set(0xffffff);
